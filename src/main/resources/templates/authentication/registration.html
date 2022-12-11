@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Регистрация</title>
+    <link rel="stylesheet"  th:href="@{/css/style.css}">
+</head>
+<header>
+    <div class="header_width">
+        <div class="header_flex">
+            <div><a href="/index" style="text-decoration: none;background: none"><img th:src="@{/images/logo.png}" alt="logo"/></a></div>
+            <div class="header_menu_flex">
+                </span>
+                <a href="/authentication"><span>Вход</span></a>
+                <a href="/product"><span>КАТАЛОГ</span></a>
+            </div>
+        </div>
+    </div>
+</header>
+<body>
+<section>
+    <br> <br> <br> <br> <br> <br><br> <br>
+        <div class="block_registration">
+<h3>Регистрация</h3>
+<br><br>
+<form method="post" th:action="@{/authentication/registration}" th:object="${person}">
+
+    <label for="username">Введите логин: </label>
+    <br>
+    <input type="text" th:field="*{login}" placeholder="Введите ваш логин" name="username" id="username">
+    <div style="color: red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
+    <br>
+
+    <label for="password">Введите пароль: </label>
+    <br>
+    <input type="password" th:field="*{password}" placeholder="Введите ваш пароль" name="password" id="password">
+    <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+    <br>
+
+    <label for="firstname">Введите имя: </label>
+    <br>
+    <input type="text" th:field="*{firstname}" placeholder="Введите вашe имя" name="firstname" id="firstname">
+    <div style="color: red" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></div>
+    <br>
+
+    <label for="lastname">Введите фамилию: </label>
+    <br>
+    <input type="text" th:field="*{lastname}" placeholder="Введите вашу фамилию" name="lastname" id="lastname">
+    <div style="color: red" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></div>
+    <br>
+
+    <label for="patronymic">Введите отчество: </label>
+    <br>
+    <input type="text" th:field="*{patronymic}" placeholder="Введите ваше отчество" name="patronymic" id="patronymic">
+    <div style="color: red" th:if="${#fields.hasErrors('patronymic')}" th:errors="*{patronymic}"></div>
+    <br>
+
+    <label for="email">Введите email: </label>
+    <br>
+    <input type="text" th:field="*{email}" placeholder="Введите ваш email" name="email" id="email">
+    <div style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+    <br>
+
+    <label for="phonenumber">Введите номер телефона: </label>
+    <br>
+    <input type="text" th:field="*{phonenumber}" placeholder="Введите ваш телефон" name="phonenumber" id="phonenumber">
+    <div style="color: red" th:if="${#fields.hasErrors('phonenumber')}" th:errors="*{phonenumber}"></div>
+    <br><br>
+
+    <input type="submit" value="Готово">
+    <div th:if="${param.error}" style="color: red">
+        Неправильный логин или пароль
+    </div>
+</form>
+        </div>
+ <br> <br> <br> <br> <br> <br>
+</section>
+</body>
+<footer>
+    <div class="footer_flex">
+        <div><img th:src="@{/images/logo.png}" alt="logo"/></div>
+        <div>Интернет-магазин антенн</div>
+    </div>
+    <p>Все права защищены © Информация не является публичной офертой \ 2022</p>
+</footer>
+</html>
