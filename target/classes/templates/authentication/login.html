@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Аутентификация</title>
+    <link rel="stylesheet"  th:href="@{/css/style.css}">
+</head>
+<header>
+    <div class="header_width">
+        <div class="header_flex">
+            <div><a href="/index" style="text-decoration: none;background: none"><img th:src="@{/images/logo.png}" alt="logo"/></a></div>
+        <div class="header_menu_flex">
+            <a href="/authentication/registration"><span>Регистрация</span></a>
+            <a href="http://localhost:8080/product"><span>КАТАЛОГ</span></a>
+        </div>
+        </div>
+    </div>
+</header>
+<body>
+<section>
+    <div class="block_center">
+    <div class="block_login">
+<h3>Вход</h3>
+        <br><br>
+<form method="post" action="/process_login">
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    <label for="username">Введите логин: </label><br>
+    <input type="text" placeholder="Введите ваш логин" name="username" id="username">
+    <br><br>
+    <label for="password">Введите пароль: </label>
+    <br>
+    <input type="password" placeholder="Введите ваш пароль" name="password" id="password">
+    <br><br>
+    <input type="submit" value="Войти">
+    <div th:if="${param.error}" style="color: red">
+        Неправильный логни или пароль
+    </div>
+</form>
+    </div>
+    </div>
+</section>
+</body>
+<footer>
+    <div class="footer_flex">
+        <div><img th:src="@{/images/logo.png}" alt="logo"/></div>
+        <div>Интернет-магазин антенн</div>
+    </div>
+    <p>Все права защищены © Информация не является публичной офертой \ 2022</p>
+</footer>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Лист юзеров</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<header>
+    <div class="header_width">
+        <div class="header_flex">
+            <div><a href="/index" style="text-decoration: none;background: none"><img th:src="@{/images/logo.png}" alt="logo"/></a></div>
+            <div class="header_menu_flex user_page">
+                <span th:text="'Вы вошли как: ' +${#authorization.getAuthentication().getName()}"></span>
+                <span>КАТАЛОГ</span>
+                <span>
+                <form method="post" th:action="@{/logout}">
+                    <input type="submit" value="Выйти">
+                </form>
+            </span>
+            </div>
+        </div>
+    </div>
+</header>
+<body>
+<section>
+    <br><br><br><br><br><br><br>
+<div class="block_editList">
+<form th:method="post" th:action="@{/admin/userList/edit/{id}(id=${person.getId()})}" th:object="${person}">
+    <input type="hidden" th:name="${_csrf}" th:value="${_csrf.token}">
+
+    <span><b>Логин: </b></span><span th:text="${person.getLogin()}"></span><br><br>
+    <span><b>Роль: </b></span><span th:text="${person.getRole_role().getName()}"></span>
+
+    <div class="hidden_block_editList">
+
+    <input type="text" th:field="*{login}" placeholder="Введите ваш логин" name="username" id="username">
+    <div style="color: red" th:if="${#fields.hasErrors('login')}" th:errors="*{login}"></div>
+    <br>
+
+    <label for="password">Введите пароль: </label>
+    <br>
+    <input type="password" th:field="*{password}" placeholder="Введите ваш пароль" name="password" id="password" value="${person.getHash}">
+    <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+    <br>
+
+    <label for="firstname">Введите имя: </label>
+    <br>
+    <input type="text" th:field="*{firstname}" placeholder="Введите вашe имя" name="firstname" id="firstname" value="${person.getFirstname}">
+    <div style="color: red" th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}"></div>
+    <br>
+
+    <label for="lastname">Введите фамилию: </label>
+    <br>
+    <input type="text" th:field="*{lastname}" name="lastname" id="lastname" value="${person.getFirstname}">
+    <div style="color: red" th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}"></div>
+    <br>
+
+    <label for="patronymic">Введите отчество: </label>
+    <br>
+    <input type="text" th:field="*{patronymic}" name="patronymic" id="patronymic" value="${person.getPatronymic}">
+    <div style="color: red" th:if="${#fields.hasErrors('patronymic')}" th:errors="*{patronymic}"></div>
+    <br>
+
+    <label for="email">Введите email: </label>
+    <br>
+    <input type="text" th:field="*{email}"  name="email" id="email"  value="${person.getEmail}">
+    <div style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+    <br>
+
+    <label for="phonenumber">Введите номер телефона: </label>
+    <br>
+    <input type="text" th:field="*{phonenumber}"  name="phonenumber" id="phonenumber"  value="${person.getPhonenumber}">
+    <div style="color: red" th:if="${#fields.hasErrors('phonenumber')}" th:errors="*{phonenumber}"></div>
+    <br>
+    </div>
+    <br><br>
+    <p>Выберите роль</p><br><br>
+    <input type="radio" id="role_1" name="new_role" value="ROLE_USER">
+    <label for="role_1">ROLE_USER</label>
+    <br>
+
+    <input type="radio" id="role_3" name="new_role" value="ROLE_SELLER">
+    <label for="role_3">ROLE_SELLER</label>
+    <br><br>
+    <input type="submit" value="Редактировать">
+
+</form>
+</div>
+</section>
+</body>
+<footer>
+    <div class="footer_flex">
+        <div><img th:src="@{/images/logo.png}" alt="logo"/></div>
+        <div>Интернет-магазин антенн</div>
+    </div>
+    <p>Все права защищены © Информация не является публичной офертой \ 2022</p>
+</footer>
+</html>

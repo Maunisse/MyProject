@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Личный кабинет администратора</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<header>
+    <div class="header_width">
+        <div class="header_flex">
+            <div><a href="/index" style="text-decoration: none;background: none"><img th:src="@{/images/logo.png}" alt="logo"/></a></div>
+            <div class="header_menu_flex user_page">
+            <span th:text="'Вы вошли как: ' +${#authorization.getAuthentication().getName()}"></span>
+            <span>КАТАЛОГ</span>
+            <span>
+                <form method="post" th:action="@{/logout}">
+                    <input type="submit" value="Выйти">
+                </form>
+            </span>
+        </div>
+    </div>
+    </div>
+</header>
+<body>
+<section>
+    <br><br><br><br><br><br><br>
+    <div class="admin_block">
+
+<h3>Личный кабинет администратора</h3>
+    <br><br>
+<a href="/admin/product/add">Добавить товар</a>
+<a href="/admin/userList">Изменить роль</a>
+        <a href="/admin/orderList">Заказы</a>
+
+    <br><br>
+<hr>
+        <form th:method="post" th:action="@{/admin/search}">
+        <div class="product_col">
+            <br>
+            <p><b>Категория товаров:</b></p>
+            <hr>
+            <br>
+            <input type="radio" id="furniture" th:name="contact" value="furniture">
+            <label for="furniture">Антенна</label>
+            <br>
+
+            <input type="radio" id="appliances" th:name="contact" value="appliances">
+            <label for="appliances">Усилитель</label>
+            <br>
+
+            <input type="radio" id="clothes" th:name="contact" value="clothes">
+            <label for="clothes">Крепление</label>
+        </div>
+            <input type="submit" value="Найти"><a href="/admin">Сбросить поиск</a>
+        </form>
+    <br>
+        <div class="product_one_flex">
+            <div th:each="product : ${search_product}">
+                <div class="product_one">
+                    <span><a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a></span>
+                    <br><br>
+                    <img th:src="'/img/'+${product.imageList[0].getFileName()}" style="width: 200px"/>
+                    <p th:text="'Цена: '+${product.getPrice()}"></p>
+                    <br><br>
+                    <a th:href="@{/admin/product/edit/{id}(id=${product.getId})}">Редактировать</a>
+                    <br><br>
+                    <a th:href="@{/admin/product/delete/{id}(id=${product.getId})}">Удалить</a>
+                    <br>
+                </div>
+            </div>
+
+        </div>
+        <br><br>
+        <hr>
+<div th:each="product: ${products}">
+    <br>
+    <div class="admin_products_flex">
+        <div class="admin_products_col">
+            <img th:src="'/img/'+${product.imageList[0].getFileName()}" style="width: 200px"/>
+            <br><br>
+            <a th:href="@{/admin/product/edit/{id}(id=${product.getId})}">Редактировать</a>
+            <br><br>
+            <a th:href="@{/admin/product/delete/{id}(id=${product.getId})}">Удалить</a>
+        </div>
+        <div class="admin_products_col">
+    <p th:text="'Наименование: '+${product.getTitle()}"></p>
+            <br>
+    <p th:text="'Цена: '+${product.getPrice()}"></p>
+            <br>
+    <p th:text="'Склад: '+${product.getWarehouse()}"></p>
+            <br>
+    <p th:text="'Продавец: '+${product.getSeller()}"></p>
+            <br>
+    <p th:text="'Категория: '+${product.getCategory().getName()}"></p>
+            <br>
+            <p th:text="'Описание: '+${product.getDescription()}"></p>
+        </div>
+    </div>
+    <br>
+    <hr>
+</div>
+    </div>
+</section>
+<br><br><br><br>
+</body>
+<footer>
+    <div class="footer_flex">
+        <div><img th:src="@{/images/logo.png}" alt="logo"/></div>
+        <div>Интернет-магазин антенн</div>
+    </div>
+    <p>Все права защищены © Информация не является публичной офертой \ 2022</p>
+</footer>
+</html>

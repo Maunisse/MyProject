@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование товара</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<header>
+  <div class="header_width">
+    <div class="header_flex">
+      <div><a href="/index" style="text-decoration: none;background: none"><img th:src="@{/images/logo.png}" alt="logo"/></a></div>
+      <div class="header_menu_flex user_page">
+        <span th:text="'Вы вошли как: ' +${#authorization.getAuthentication().getName()}"></span>
+        <span>КАТАЛОГ</span>
+        <span>
+                <form method="post" th:action="@{/logout}">
+                    <input type="submit" value="Выйти">
+                </form>
+            </span>
+      </div>
+    </div>
+  </div>
+</header>
+<body>
+<section>
+  <br><br><br><br><br><br><br>
+  <div class="block_editProduct">
+<h3>Редактирование товара</h3>
+    <br><br>
+<form method="post" th:action="@{/admin/product/edit/{id}(id=${product.getId()})}" th:object="${product}">
+  <label for="title">Введите название: </label>
+  <input type="text" placeholder="Описание товара" id="title" th:field="*{title}">
+  <div style="color: red" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
+  <br><br>
+
+  <label for="description">Введите описание: </label>
+  <br><br>
+  <textarea th:field="*{description}" id="description" placeholder="Описание"></textarea>
+  <div style="color: red" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>
+  <br><br>
+
+  <label for="price">Введите цену: </label>
+  <input type="number" placeholder="Цена товара" id="price" th:field="*{price}" min="1" step="0.00">
+  <div style="color: red" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>
+  <br><br>
+
+  <label for="warehouse">Введите склад: </label>
+  <input type="text" placeholder="Склад товара" id="warehouse" th:field="*{warehouse}">
+  <div style="color: red" th:if="${#fields.hasErrors('warehouse')}" th:errors="*{warehouse}"></div>
+  <br><br>
+
+  <label for="seller">Введите продавца: </label>
+  <input type="text" placeholder="Продавец товара" id="seller" th:field="*{seller}">
+  <div style="color: red" th:if="${#fields.hasErrors('seller')}" th:errors="*{seller}"></div>
+  <br><br>
+
+  <label for="category">Введите категорию товара: </label>
+  <select name="category" th:field="*{category}" id="category">
+    <div th:each="element: ${category}">
+      <option th:text="${element.getName()}" th:value="${element.getId()}"></option>
+    </div>
+  </select>
+  <br><br>
+
+  <div th:each="img: ${product.getImageList()}" class="editProdut_img">
+    <img th:src="'/img/' + ${img.getFileName()}" width="200px"/>
+<br><br>
+    <a th:href="@{/admin/product/delete/img/{id}(id=${img.getId})}">Удалить фото</a>
+  </div>
+
+<!--  <form method="post" th:action="@{/admin/product/edit/img/{id}(id=${image.getId()})}" th:object="${image}">-->
+<!--  <input type="file" name="file_one">-->
+<!--  <br>-->
+<!--    <input type="submit" value="Добавить">-->
+<!--  </form>-->
+
+  <br><br><br>
+  <div class="add_center">
+  <input type="submit" value="Внести изменения">
+  </div>
+</form>
+  </div>
+  <br><br><br><br>
+</section>
+</body>
+<footer>
+  <div class="footer_flex">
+    <div><img th:src="@{/images/logo.png}" alt="logo"/></div>
+    <div>Интернет-магазин антенн</div>
+  </div>
+  <p>Все права защищены © Информация не является публичной офертой \ 2022</p>
+</footer>
+</html>

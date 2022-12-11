@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Корзина</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<header>
+    <div class="header_width">
+        <div class="header_flex">
+            <div><a href="/index" style="text-decoration: none;background: none"><img th:src="@{/images/logo.png}" alt="logo"/></a></div>
+            <div class="header_menu_flex user_page">
+                <span th:text="'Вы вошли как: ' +${#authorization.getAuthentication().getName()}"></span>
+                <a href="/cart"><span>КОРЗИНА</span></a>
+                <a href="/orders"><span>ЗАКАЗ</span></a>
+                <span>
+                <form method="post" th:action="@{/logout}">
+                    <input type="submit" value="Выход">
+                </form>
+                </span>
+            </div>
+        </div>
+    </div>
+</header>
+<body>
+<section>
+    <br><br><br><br><br><br><br>
+    <div class="block_cart">
+<h3>Корзина</h3>
+        <br><br>
+<div th:each="product: ${cart_product}">
+    <div class="cart_flex">
+        <div>
+            <a th:href="@{/product/info/{id}(id=${product.getId()})}" th:text="${product.getTitle()}"></a></div>
+<div>
+    <img th:src="'/img/'+${product.imageList[0].getFileName()}" style="width: 80px"/></div>
+        <div><span th:text="'Цена: '+${product.getPrice()}"></span></div>
+        <div class="cart_a"><a th:href="@{/cart/delete/{id}(id=${product.getId()})}">Удалить</a></div>
+    </div>
+    <br><br>
+    <hr>
+    <br><br>
+</div>
+<h3 th:text="'Итоговая цена: '+${price}"></h3>
+        <br>
+        <div class="add_center">
+        <div class="cart_a">
+<a href="/order/create">Оформить заказ</a>
+        </div></div>
+    </div>
+</section>
+</body>
+<footer>
+    <div class="footer_flex">
+        <div><img th:src="@{/images/logo.png}" alt="logo"/></div>
+        <div>Интернет-магазин антенн</div>
+    </div>
+    <p>Все права защищены © Информация не является публичной офертой \ 2022</p>
+</footer>
+</html>
